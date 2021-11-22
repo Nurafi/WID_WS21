@@ -223,7 +223,7 @@
         {
          "name":"script",
          "type":"string",
-         "value":"https://raw.githubusercontent.com/Nurafi/WID_WS21/main/dist/script.js"
+         "value":"script.js"
         }],
  "renderorder":"right-down",
  "tiledversion":"1.7.0",
