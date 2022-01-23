@@ -5,22 +5,118 @@ import {bootstrapExtra} from "@workadventure/scripting-api-extra";
 // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure.
 bootstrapExtra().catch(e => console.error(e));
 
-
+let currentPopup: any = undefined;
 WA.onInit().then(() => {
-    let currentPopup: any = undefined;
 
     //
     // Room 1
     //
+	WA.room.onEnterZone('room1_question', () => {
+		if (currentPopup !== undefined) {
+			currentPopup.close();
+		}
+		currentPopup = WA.ui.openPopup("room1QuestionPopup", "Das Passwort ist die richtige Reihenfolge der Shader", []);
+	})
+	
+	WA.room.onLeaveZone('room1_question', closePopUp);
+	
+	WA.room.onEnterZone('room1_answer1', () => {
+		if (currentPopup !== undefined) {
+			currentPopup.close();
+		}
+		currentPopup = WA.ui.openPopup("room1_text", "Fragmentshader: 7", []);
+	})
+	
+	WA.room.onLeaveZone('room1_answer1', closePopUp);
+	
+	WA.room.onEnterZone('room1_answer2', () => {
+		if (currentPopup !== undefined) {
+			currentPopup.close();
+		}
+		currentPopup = WA.ui.openPopup("room1_text", "Vertexshader: 1", []);
+	})
+	
+	WA.room.onLeaveZone('room1_answer2', closePopUp);
+	
+	WA.room.onEnterZone('room1_answer3', () => {
+		if (currentPopup !== undefined) {
+			currentPopup.close();
+		}
+		currentPopup = WA.ui.openPopup("room1_text", "Geometryshader: 2", []);
+	})
+	
+	WA.room.onLeaveZone('room1_answer3', closePopUp);
 
     //
     // Room 2
     //
 
+	WA.room.onEnterZone('room2_questions', () => {
+		if (currentPopup !== undefined) {
+			currentPopup.close();
+		}
+		currentPopup = WA.ui.openPopup("roomQuestionPopup", "Raum2! Die gesuchten Gegenstände sind: Prozessor, PSU, Motherboard", []);
+	})
+	
+	WA.room.onLeaveZone('room2_questions', closePopUp);
+	
+	WA.room.onEnterZone('room2_questions2', () => {
+		if (currentPopup !== undefined) {
+			currentPopup.close();
+		}
+		currentPopup = WA.ui.openPopup("room2AnswerPopup", "Die Aufgabe befindet sich im Spawn", []);
+	})
+	
+	WA.room.onLeaveZone('room2_questions2', closePopUp);
+	
+	WA.room.onEnterZone('room2_zone1', () => {
+		if (currentPopup !== undefined) {
+			currentPopup.close();
+		}
+		currentPopup = WA.ui.openPopup("room2AnswerPopup", "Prozessor: 5", []);
+	})
+	
+	WA.room.onLeaveZone('room2_zone1', closePopUp);
+	
+	WA.room.onEnterZone('room2_zone2', () => {
+		if (currentPopup !== undefined) {
+			currentPopup.close();
+		}
+		currentPopup = WA.ui.openPopup("room2AnswerPopup", "Motherboard: 2", []);
+	})
+	
+	WA.room.onLeaveZone('room2_zone2', closePopUp);
+	
+	WA.room.onEnterZone('room2_zone3', () => {
+		if (currentPopup !== undefined) {
+			currentPopup.close();
+		}
+		currentPopup = WA.ui.openPopup("room2AnswerPopup", "Graphicscard: 8", []);
+	})
+	
+	WA.room.onLeaveZone('room2_zone3', closePopUp);
+	
+	WA.room.onEnterZone('room2_zone4', () => {
+		if (currentPopup !== undefined) {
+			currentPopup.close();
+		}
+		currentPopup = WA.ui.openPopup("room2AnswerPopup", "PSU: 6", []);
+	})
+	
+	WA.room.onLeaveZone('room2_zone4', closePopUp);
     //
     // Room 3
     //
-
+	
+	WA.room.onEnterZone('room3_questions', () => {
+		if (currentPopup !== undefined) {
+			currentPopup.close();
+		}
+		currentPopup = WA.ui.openPopup("roomQuestionPopup", "Raum3! Das Passwort ist auf dem 3D Model", []);
+	})
+	
+	WA.room.onLeaveZone('room3_questions', closePopUp);
+	
     //
     // Room 4
     //
@@ -172,7 +268,6 @@ WA.onInit().then(() => {
 });
 
 
-let currentPopup: any = undefined;
 const today = new Date();
 const time = today.getHours() + ":" + today.getMinutes();
 
@@ -185,8 +280,9 @@ WA.room.onEnterZone('clock', () => {
 
 WA.room.onLeaveZone('clock', closePopUp)
 
-function closePopUp() {
+function closePopUp() {	
     if (currentPopup !== undefined) {
+		console.log("close");
         currentPopup.close();
         if (currentPopup !== undefined) {
             currentPopup.close();
