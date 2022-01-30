@@ -112,7 +112,7 @@ WA.onInit().then(() => {
 		if (currentPopup !== undefined) {
 			currentPopup.close();
 		}
-		currentPopup = WA.ui.openPopup("roomQuestionPopup", "Raum3! Das Passwort ist auf dem 3D Model", []);
+		currentPopup = WA.ui.openPopup("roomQuestionPopup", "Raum3! Das Passwort ist auf dem Bildschirm des sehr alten Monitors", []);
 	})
 	
 	WA.room.onLeaveZone('room3_questions', closePopUp);
@@ -120,6 +120,15 @@ WA.onInit().then(() => {
     //
     // Room 4
     //
+	
+	WA.room.onEnterZone('room4_questions', () => {
+		if (currentPopup !== undefined) {
+			currentPopup.close();
+		}
+		currentPopup = WA.ui.openPopup("room4QuestionPopup", "Das Passwort ist die Kombination an Inputs für das Logic gate welches 1 als Ausgabe hat", []);
+	})
+	
+	WA.room.onLeaveZone('room4_questions', closePopUp);
 
     //
     // Room 5
