@@ -6,7 +6,13 @@ import {bootstrapExtra} from "@workadventure/scripting-api-extra";
 bootstrapExtra().catch(e => console.error(e));
 
 let currentPopup: any = undefined;
+
+const _MS_PER_DAY = 1000 * 60 * 60 * 24
+
 WA.onInit().then(() => {
+	let startTime = new Date().getTime();
+	let finishTime: any;
+	let finishedRoom = false;
 
     //
     // Room 1
@@ -64,7 +70,7 @@ WA.onInit().then(() => {
 		if (currentPopup !== undefined) {
 			currentPopup.close();
 		}
-		currentPopup = WA.ui.openPopup("room2AnswerPopup", "Die Aufgabe befindet sich im Spawn", []);
+		currentPopup = WA.ui.openPopup("room2AnswerPopup", "Die Aufgabe befindet sich im Startraum", []);
 	})
 	
 	WA.room.onLeaveZone('room2_questions2', closePopUp);
@@ -273,6 +279,24 @@ WA.onInit().then(() => {
     //
     // Room 6
     //
+	WA.room.onEnterZone('room_final', () => {
+		if (currentPopup !== undefined) {
+			currentPopup.close();
+		}
+		
+		if(!finishedRoom){
+			finishTime = new Date().getTime();
+			finishedRoom = true;
+		}
+		
+		const diff = dateDiffInDays(startTime , finishTime);
+		const date = new Date(diff);
+		
+		currentPopup = WA.ui.openPopup("room_final_popup", "Zeit für den Escaperoom: " + date.getUTCHours() + "h:" + date.getUTCMinutes() + "m:" + date.getUTCSeconds() + "s" , []);
+	})
+	
+	WA.room.onLeaveZone('room_final', closePopUp);
+	
 
 });
 
@@ -298,4 +322,9 @@ function closePopUp() {
         }
         currentPopup = undefined;
     }
+}
+
+function dateDiffInDays(a: any, b: any) {
+  // Discard the time and time-zone information.
+  return b - a;
 }
