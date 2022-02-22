@@ -284,8 +284,6 @@ WA.onInit().then(() => {
 			currentPopup.close();
 		}
 		
-		console.log("finished escape room");
-		console.log(finishedRoom);
 		if(!finishedRoom){
 			finishTime = new Date().getTime();
 			finishedRoom = true;
