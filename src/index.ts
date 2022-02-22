@@ -284,6 +284,8 @@ WA.onInit().then(() => {
 			currentPopup.close();
 		}
 		
+		console.log("finished escape room");
+		console.log(finishedRoom);
 		if(!finishedRoom){
 			finishTime = new Date().getTime();
 			finishedRoom = true;
@@ -325,6 +327,5 @@ function closePopUp() {
 }
 
 function dateDiffInDays(a: any, b: any) {
-  // Discard the time and time-zone information.
   return b - a;
 }
